@@ -45,15 +45,15 @@ public class 下一个排列 {
             while (end>0 && nums[end-1] >= nums[end]) --end;
             --end;//需要再减一下才能拿到  因为 nums[end-1] < nums[end]  我们需要的是end-1;
             index = nums.length-1;
-            //找到第一个比 非递减数大的数  例如 1 2 3 4 3 4 5 2 1
+            //找到第一个比 非递减数大的数  例如 1 2 3 4 3 |4| |5| 2 1
             //上一步找到的数是4        这一步需要找到的是5
             while (index>end && nums[index] <= nums[end]) --index;
             //交换这两个数  然后把 end之后的数增序排列（反转）
             int temp = nums[end];
             nums[end] = nums[index];
             nums[index] = temp;
-            index = nums.length-1;
-            ++end;//end ----末尾的元素 进行反转  因为根据特征他们是有序的 首尾交换即可
+            index = nums.length-1;//这时数组为 1 2 3 4 3 5 4 2 1
+            ++end;//end ----末尾的元素 {4 2 1  进行反转  因为根据特征他们是有序的 首尾交换即可}
             while (end < index){
                 int temp2 = nums[index];
                 nums[index--] = nums[end];
