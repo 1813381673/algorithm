@@ -44,10 +44,9 @@ package difficult;
 public class 拼接最大数 {
 
     public static void main(String[] args) {
-        int[] nums = {1,2,3,4,5,6,7,8,2};
+        int[] nums = {1,2,3,4,5,6,7};
         int k = 2;
         maxSubsequence(nums, k);
-
     }
 
 
@@ -67,7 +66,7 @@ public class 拼接最大数 {
         }
         return ans;
     }
-
+    // 合并两个数组  谁大先放谁
     public static int[] merge(int[] subsequence1, int[] subsequence2) {
         int x = subsequence1.length, y = subsequence2.length;
         if (x == 0) {
@@ -94,16 +93,20 @@ public class 拼接最大数 {
         int length = nums.length;
         int[] stack = new int[k];
         int top = -1;
+        // 还有多少个候选值
         int remain = length - k;
         for (int i = 0; i < length; i++) {
             int num = nums[i];
             while (top >= 0 && stack[top] < num && remain > 0) {
+                // 每次回退一个  候选值就要补上一个  所以候选值减一
                 top--;
                 remain--;
             }
             if (top < k - 1) {
+                // 如果栈没有满  就放入值
                 stack[++top] = num;
             } else {
+                // 如过栈满了 说明这个值与最后一个值一样小  并且是候选值 所以继续向后遍历 候选值减一
                 remain--;
             }
         }
@@ -113,13 +116,16 @@ public class 拼接最大数 {
     public static int compare(int[] subsequence1, int index1, int[] subsequence2, int index2) {
         int x = subsequence1.length, y = subsequence2.length;
         while (index1 < x && index2 < y) {
+            // 比较这两个值  如果 前者与后者不相等 则 直接返回 差值
             int difference = subsequence1[index1] - subsequence2[index2];
             if (difference != 0) {
                 return difference;
             }
+            // 如果两个值相同 则继续向后比较
             index1++;
             index2++;
         }
+        // 如果两者的前缀完全相同 则返回两者的位数差值
         return (x - index1) - (y - index2);
     }
 
